@@ -58,7 +58,7 @@ player_two = Player("two")
 new_deck = Deck()
 new_deck.shuffle()
 
-for item in range(0,27):
+for item in range(26):
     player_one.add_cards(new_deck.deal_one())
     player_two.add_cards(new_deck.deal_one())
 
@@ -68,4 +68,53 @@ counter = 0
 
 while game_on:
     counter += 1
+    print(f"Round {counter}")
+
+    if len(player_one.all_cards) == 0:
+        print("Player Two Wins!")
+        game_on = False
+        break
+
     
+    if len(player_two.all_cards) == 0:
+        print("Player One Wins!")
+        game_on = False
+        break
+
+    player_one_cards = []
+    player_two_cards = []
+
+    player_one_cards.append(player_one.remove_card())
+    player_two_cards.append(player_two.remove_card())
+
+    at_war = True
+    while at_war:
+        if player_one_cards[-1].value > player_two_cards[-1].value:
+            player_one.add_cards(player_one_cards)
+            player_one.add_cards(player_two_cards)
+            at_war = False
+        elif player_one_cards[-1].value < player_two_cards[-1].value:
+            player_two.add_cards(player_two_cards)
+            player_two.add_cards(player_one_cards)
+            at_war = False   
+        else:
+            print("WAR!")
+            if len(player_one.all_cards) < 3:
+                print("Player one unable to declare war")
+                print("Player two WINS!")
+                game_on = False
+                break
+            elif len(player_two.all_cards) < 3:
+                print("Player two unable to declare war") 
+                print("Player one WINS!")
+                game_on = False
+                break  
+            else:
+                for item in range(3):
+                    player_one_cards.append(player_one.remove_card())
+                    player_two_cards.append(player_two.remove_card()) 
+
+
+                     
+
+
