@@ -50,4 +50,22 @@ class Player:
 
     def __str__(self):
         return f"Player {self.name} has {len(self.all_cards)} cards."
-        
+
+
+player_one = Player("one")
+player_two = Player("two")
+
+new_deck = Deck()
+new_deck.shuffle()
+
+for item in range(0,27):
+    player_one.add_cards(new_deck.deal_one())
+    player_two.add_cards(new_deck.deal_one())
+
+game_on = True
+
+counter = 0
+
+while game_on:
+    counter += 1
+    
